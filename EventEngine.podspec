@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/apploft/EventEngine"
-  s.swift_version = '4.1'
+  s.swift_versions = ['4.1', '5.0']
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Tino Rachui" => "tino.rachui@apploft.de" }
   s.platform     = :ios, "10.0"
