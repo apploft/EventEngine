@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "EventEngine"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A simple framework to count events in an app e.g. for score based rating dialog apperance."
   s.description  = <<-DESC
                    A simple framework to count events in an app. An event is basically just a named counter an 
