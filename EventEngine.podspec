@@ -17,5 +17,4 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "10.0"
   s.source       = { :git => "https://github.com/apploft/EventEngine.git", :tag => s.version.to_s }
   s.source_files  = "EventEngine", "EventEngine/**/*.{h,m,swift}"
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.1' }
 end
