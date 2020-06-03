@@ -1,15 +1,14 @@
 //
-//  EventEngineTests.swift
-//  EventEngineTests
-//
-//  Created by Tino Rachui on 19.03.18.
-//  Copyright © 2018 apploft. All rights reserved.
+// Created by apploft on 19.03.18.
+// Copyright © 2019 apploft GmbH.
+// MIT License · http://choosealicense.com/licenses/mit/
 //
 
 import XCTest
 @testable import EventEngine
 
-class EventEngineTests: XCTestCase {
+final class EventEngineTests: XCTestCase {
+    
     let appLaunchesEventName = "appLaunches"
     
     override func setUp() {
@@ -38,4 +37,9 @@ class EventEngineTests: XCTestCase {
         
         eventEngine.synchronize()
     }
+    
+    
+    static var allTests = [
+        ("testFireEvent", testFireEvent),
+    ]
 }
