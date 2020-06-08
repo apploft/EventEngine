@@ -20,14 +20,14 @@ final class EventEngineTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
         
-        let eventEngine = EventEngineFactory.userDefaultsBasedEventEngine
+        let eventEngine = EventEngineFactory.userDefaultPersistingEventEngine
         
         eventEngine.reset(event: appLaunchesEventName)
         eventEngine.synchronize()
     }
     
     func testFireEvent() {
-        let eventEngine = EventEngineFactory.userDefaultsBasedEventEngine
+        let eventEngine = EventEngineFactory.userDefaultPersistingEventEngine
         
         XCTAssertTrue(eventEngine.state(ofEvent: appLaunchesEventName).count == 0, "App launches event must have a count of 0")
         
