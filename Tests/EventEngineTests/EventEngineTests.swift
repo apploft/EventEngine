@@ -9,37 +9,98 @@ import XCTest
 
 final class EventEngineTests: XCTestCase {
     
-    let appLaunchesEventName = "appLaunches"
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    private let appLaunchesEventName = "appLaunches"
+    private let eventEngine = EventEngineFactory.userDefaultPersistingEventEngine
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
         
-        let eventEngine = EventEngineFactory.userDefaultPersistingEventEngine
-        
         eventEngine.reset(event: appLaunchesEventName)
+        eventEngine.enable(event: appLaunchesEventName)
         eventEngine.synchronize()
     }
     
     func testFireEvent() {
-        let eventEngine = EventEngineFactory.userDefaultPersistingEventEngine
+        // Given
+        let incrementationValue = 1
+        let expectedCount = incrementationValue
         
-        XCTAssertTrue(eventEngine.state(ofEvent: appLaunchesEventName).count == 0, "App launches event must have a count of 0")
+        // When
+        eventEngine.fire(event: appLaunchesEventName, incrementBy: incrementationValue)
         
+        // Then
+        XCTAssertEqual(eventEngine.state(ofEvent: appLaunchesEventName).count,
+                       expectedCount,
+                      "App launches event must have a count 0f 1")
+    }
+    
+    
+    func testResetEvent() {
+        // Given
+        let expectedCountAfterReset = 0
+        
+        // When
         eventEngine.fire(event: appLaunchesEventName, incrementBy: 1)
+        eventEngine.reset(event: appLaunchesEventName)
         
-        XCTAssertTrue(eventEngine.state(ofEvent: appLaunchesEventName).count == 1, "App launches event must have a count 0f 1")
+        // Then
+        XCTAssertEqual(eventEngine.state(ofEvent: appLaunchesEventName).count,
+                       expectedCountAfterReset,
+                       "Reseted event musst have a count of 0")
+    }
+    
+    func testDisableEvent() {
+        // Given
+        let expectedCountAfterDisabled = 0
         
+        // When
+        eventEngine.fire(event: appLaunchesEventName, incrementBy: 1)
+        eventEngine.disable(event: appLaunchesEventName)
+        
+        // Then
+        XCTAssertEqual(eventEngine.state(ofEvent: appLaunchesEventName).count,
+                       expectedCountAfterDisabled,
+                       "Disabled Event musst have a count of 0")
+    }
+    
+    func testeEnableEvent() {
+        // Given
+        let incrementationValue = 1
+        let expectedCount = incrementationValue
+        
+        // When
+        eventEngine.fire(event: appLaunchesEventName, incrementBy: 1)
+        eventEngine.disable(event: appLaunchesEventName)
+        eventEngine.enable(event: appLaunchesEventName)
+        
+        // Then
+        XCTAssertEqual(eventEngine.state(ofEvent: appLaunchesEventName).count,
+                       expectedCount,
+                       "Enabled Event musst have a count of 1 after increment by 1")
+    }
+    
+    func testSynchornisation() {
+        // Given
+        let differentEventEngine = EventEngineFactory.userDefaultPersistingEventEngine
+        let incrementationValue = 1
+        let expectedCount = incrementationValue
+        
+        // When
+        eventEngine.fire(event: appLaunchesEventName, incrementBy: 1)
         eventEngine.synchronize()
+        
+        // Then
+        XCTAssertEqual(differentEventEngine.state(ofEvent: appLaunchesEventName).count,
+                       expectedCount,
+                       "Synchronizing failed. The persisted value is not the expected one.")
     }
     
     
     static var allTests = [
         ("testFireEvent", testFireEvent),
+        ("testResetEvent", testResetEvent),
+        ("testDisableEvent", testDisableEvent),
+        ("testeEnableEvent", testeEnableEvent),
+        ("testSynchornisation", testSynchornisation)
     ]
 }

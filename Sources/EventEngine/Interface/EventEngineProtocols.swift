@@ -51,7 +51,7 @@ public protocol EventEngine {
     /// - Parameter incrementBy: The number which will be added to the
     ///                          counter of an event state. The number can also be negative.
     func fire(event: String, incrementBy: Int)
-    /// This function resets an event.
+    /// This function resets an event. A reset sets the the count, the first and last occurrence of the associated event to 0.
     /// The change is stored in the memory cache.
     /// - Parameter event: The name of the event, which will be reseted.
     func reset(event: String)
