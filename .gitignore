@@ -1,4 +1,9 @@
-# Add any directories, files, or patterns you don't want to be tracked by version control
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+
 # Xcode
 build/*
 *.pbxuser
@@ -9,12 +14,11 @@ build/*
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
+*.xcworkspace
 !default.xcworkspace
 xcuserdata
 profile
 *.moved-aside
+Pods/
+Podfile.lock
 fastlane/report.xml
-fastlane/README.md
-fastlane/screenshots/*
-
-.DS_Store
