@@ -14,6 +14,10 @@ let package = Package(
             name: "EventEngine",
             type: .dynamic,
             targets: ["EventEngine"]),
+        .library(
+            name: "EventEngineStatic",
+            type: .static,
+            targets: ["EventEngine"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
